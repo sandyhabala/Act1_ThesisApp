@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{%static 'styles.css'%}" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main-detail">
+      <h1>{{detail}}</h1>
+      <p>Published: {{detail.published}}</p>
+      <p>Status: {{detail.get_status_display}}</p>
+      <p>Adviser: {{detail.adviser}}</p>
+    </div>
+    <hr />
+    <div class="authors">
+      <h4>Authors</h4>
+      {% for author in authors %}
+      <li>{{author}}</li>
+      {% endfor %}
+    </div>
+    <div class="panelists">
+      <h4>Panelists</h4>
+      {% for panelist in panelists %}
+      <li>{{panelist}}</li>
+      {% endfor %}
+    </div>
+    <hr />
+    <div class="abstract">
+      <h4>Abstract</h4>
+      <p>{{detail.abstract}}</p>
+    </div>
+  </body>
+</html>
