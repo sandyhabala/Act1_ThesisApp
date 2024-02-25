@@ -17,8 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from thesisapp.views import landing
+
 
 urlpatterns = [
+    path("", landing),
     path("thesis/", include("thesisapp.urls")),
     path("admin/", admin.site.urls),
 ]

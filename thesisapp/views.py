@@ -5,6 +5,10 @@ from django.views.decorators.http import require_POST
 from .forms import CommentForm
 
 # Create your views here.
+
+def landing(request):
+    return render(request, "landing.html")
+
 def post_list(request):
     thesis_list = Thesis.objects.all()
     paginator = Paginator(thesis_list, 5)
