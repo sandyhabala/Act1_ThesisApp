@@ -1,0 +1,16 @@
+{% extends 'index.html' %} {% block title %} Searcher {% endblock title %}
+
+<!--  -->
+{% block content %}
+
+<ul class="list">
+  {% for thesis in thesis_list %}
+  <li>
+    <a href="{% url 'detail' thesis.id%}">{{thesis.title}}</a>
+    <p>{{thesis.get_status_display}}</p>
+    <p>{{thesis.published}}</p>
+  </li>
+  {% endfor %}
+</ul>
+
+{% include 'paginator.html' with page=thesis_list %} {% endblock content %}
