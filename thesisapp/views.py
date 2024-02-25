@@ -45,3 +45,12 @@ def post_comment(request, post_id):
                         {'post': post,
                          'form': form, 
                          'comment': comment})
+
+@require_POST
+def search(request):
+
+    words = request.POST.get('words', None)
+    print(words)
+    thesis_list = Thesis.objects.filter(abstract__contains=words)
+
+    return render(request, "post/search_results.html", {"thesis_list": thesis_list})

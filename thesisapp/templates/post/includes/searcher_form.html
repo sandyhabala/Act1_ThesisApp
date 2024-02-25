@@ -1,0 +1,7 @@
+<h2 style="margin-top: 1rem">Search for thesis</h2>
+
+<form action="{% url 'searcher:search'%}" method="post">
+  {%csrf_token%}
+  <input type="text" name="words" />
+  <button type="submit">Search</button>
+</form>
