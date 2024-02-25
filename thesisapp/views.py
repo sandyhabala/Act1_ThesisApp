@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Thesis
 from django.core.paginator import Paginator
+from django.views.decorators.http import require_POST
+from .forms import CommentForm
 
 # Create your views here.
-def index(request):
+def post_list(request):
     thesis_list = Thesis.objects.all()
     paginator = Paginator(thesis_list, 5)
     page_number = request.GET.get("page", 1)
@@ -16,9 +18,26 @@ def detail(request, id):
     detail = Thesis.objects.get(pk=id)
     authors = detail.authors.all()
     panelists = detail.panelists.all()
+    comments = detail.comments.filter(active=True)
+    form = CommentForm()
 
     return render(
         request,
         "post/detail.html",
-        {"detail": detail, "authors": authors, "panelists": panelists},
+        {"detail": detail, "authors": authors, "panelists": panelists, "form": form, "comments": comments},
     )
+
+@require_POST
+def post_comment(request, post_id):
+    post = get_object_or_404(Thesis, id=post_id, status=Thesis.Status.PUBLISHED)
+    comment = None
+    form = CommentForm(data=request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.save()
+
+    return render(request, "post/comment.html",
+                        {'post': post,
+                         'form': form, 
+                         'comment': comment})

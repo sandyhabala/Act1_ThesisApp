@@ -6,7 +6,7 @@
 <ul class="list">
   {% for thesis in thesis_list %}
   <li>
-    <a href="{% url 'detail' thesis.id%}">{{thesis.title}}</a>
+    <a href="{% url 'searcher:detail' thesis.id%}">{{thesis.title}}</a>
     <p>{{thesis.get_status_display}}</p>
     <p>{{thesis.published}}</p>
   </li>
